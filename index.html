@@ -1,10 +1,9 @@
- 
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Produk Toko</title>
+    <title>Manajemen Produk Toko - Lengkap</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,23 +13,23 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
             color: #333;
             min-height: 100vh;
             padding: 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.97);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
         
         header {
-            background: linear-gradient(to right, #2575fc, #6a11cb);
+            background: linear-gradient(to right, #1a2980, #26d0ce);
             color: white;
             padding: 30px;
             text-align: center;
@@ -39,22 +38,16 @@
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        
-        .subtitle {
-            opacity: 0.9;
-            font-size: 1.1em;
         }
         
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr 1.5fr;
             gap: 30px;
             padding: 30px;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
@@ -64,25 +57,36 @@
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
         .data-section {
             background: white;
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
         }
         
         h2 {
-            color: #2575fc;
+            color: #1a2980;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #eee;
         }
         
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
         .form-group {
             margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
         }
         
         label {
@@ -92,7 +96,7 @@
             color: #555;
         }
         
-        input, textarea {
+        input, select, textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #ddd;
@@ -101,16 +105,17 @@
             transition: all 0.3s;
         }
         
-        input:focus, textarea:focus {
-            border-color: #6a11cb;
+        input:focus, select:focus, textarea:focus {
+            border-color: #1a2980;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            box-shadow: 0 0 0 3px rgba(26, 41, 128, 0.2);
         }
         
         .button-group {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
         
         button {
@@ -121,10 +126,13 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn-primary {
-            background: linear-gradient(to right, #2575fc, #6a11cb);
+            background: linear-gradient(to right, #1a2980, #26d0ce);
             color: white;
         }
         
@@ -140,38 +148,46 @@
         
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(to right, #1b6bd1, #5a0fb9);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            min-width: 800px;
         }
         
         th, td {
-            padding: 15px;
+            padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #eee;
+            vertical-align: top;
         }
         
         th {
             background-color: #f8f9fa;
-            color: #2575fc;
+            color: #1a2980;
             font-weight: 600;
+            position: sticky;
+            top: 0;
         }
         
         tr:hover {
             background-color: #f5f5f5;
         }
         
+        .product-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 5px;
         }
         
         .action-btn {
@@ -214,93 +230,177 @@
         
         .loading {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             color: #6c757d;
         }
         
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #6a11cb;
+            border-top: 4px solid #1a2980;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
         }
         
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a2980;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Manajemen Produk Toko</h1>
-            <p class="subtitle">CRUD System dengan Google Sheets Database</p>
+            <h1>🛍️ Manajemen Produk Toko Elektronik</h1>
+            <p>Sistem CRUD Lengkap dengan Google Sheets Database</p>
         </header>
         
         <div class="main-content">
             <!-- Form Section -->
             <section class="form-section">
-                <h2>Form Produk</h2>
+                <h2>📝 Form Produk</h2>
                 <form id="productForm">
-                    <div class="form-group">
-                        <label for="productName">Nama Produk</label>
-                        <input type="text" id="productName" name="product" placeholder="Masukkan nama produk" required>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nama">Nama Produk *</label>
+                            <input type="text" id="nama" name="nama" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="kategori">Kategori *</label>
+                            <select id="kategori" name="kategori" required>
+                                <option value="">Pilih Kategori</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Smartphone">Smartphone</option>
+                                <option value="TV">TV</option>
+                                <option value="Aksesoris">Aksesoris</option>
+                                <option value="Kamera">Kamera</option>
+                                <option value="Tablet">Tablet</option>
+                                <option value="Komponen">Komponen</option>
+                                <option value="Router">Router</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="harga">Harga (Rp) *</label>
+                            <input type="number" id="harga" name="harga" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stok">Stok *</label>
+                            <input type="number" id="stok" name="stok/wai" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pembelian">Pembelian</label>
+                            <input type="number" id="pembelian" name="pembelian">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="terjual">Terjual</label>
+                            <input type="number" id="terjual" name="tefjuai">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="gambar">URL Gambar</label>
+                            <input type="url" id="gambar" name="gambar" placeholder="https://example.com/image.jpg">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="deskirpsi">Deskripsi</label>
+                            <textarea id="deskirpsi" name="deskirpsi" rows="4"></textarea>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="productPrice">Harga (Rp)</label>
-                        <input type="number" id="productPrice" name="price" placeholder="Masukkan harga" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productStock">Stok</label>
-                        <input type="number" id="productStock" name="stock" placeholder="Masukkan jumlah stok" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productCategory">Kategori</label>
-                        <input type="text" id="productCategory" name="category" placeholder="Masukkan kategori">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productDescription">Deskripsi</label>
-                        <textarea id="productDescription" name="description" rows="3" placeholder="Masukkan deskripsi produk"></textarea>
-                    </div>
-                    
-                    <input type="hidden" id="productId">
+                    <input type="hidden" id="rowId">
+                    <input type="hidden" id="frontendId">
                     
                     <div class="button-group">
-                        <button type="submit" class="btn-primary" id="saveBtn">Simpan Produk</button>
-                        <button type="button" class="btn-secondary" id="clearBtn">Bersihkan Form</button>
+                        <button type="submit" class="btn-primary" id="saveBtn">
+                            <span>💾</span> Simpan Produk
+                        </button>
+                        <button type="button" class="btn-secondary" id="clearBtn">
+                            <span>🧹</span> Bersihkan Form
+                        </button>
                     </div>
                 </form>
             </section>
             
             <!-- Data Section -->
             <section class="data-section">
-                <h2>Daftar Produk</h2>
-                <div class="button-group">
-                    <button type="button" class="btn-primary" id="refreshBtn">Refresh Data</button>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>📋 Daftar Produk</h2>
+                    <button class="btn-primary" id="refreshBtn">
+                        <span>🔄</span> Refresh Data
+                    </button>
                 </div>
                 
+                <!-- Statistics -->
+                <div class="stats" id="statsContainer" style="display: none;">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalProducts">0</div>
+                        <div class="stat-label">Total Produk</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalStock">0</div>
+                        <div class="stat-label">Total Stok</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalSold">0</div>
+                        <div class="stat-label">Total Terjual</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgPrice">0</div>
+                        <div class="stat-label">Rata-rata Harga</div>
+                    </div>
+                </div>
+                
+                <!-- Loading Indicator -->
                 <div id="loading" class="loading">
                     <div class="spinner"></div>
-                    <p>Memuat data produk...</p>
+                    <p>Memuat data produk dari Google Sheets...</p>
                 </div>
                 
+                <!-- Data Table -->
                 <div id="dataContainer" style="display: none;">
                     <table id="productTable">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama Produk</th>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Kategori</th>
                                 <th>Harga</th>
                                 <th>Stok</th>
-                                <th>Kategori</th>
+                                <th>Gambar</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -310,21 +410,24 @@
                     </table>
                 </div>
                 
+                <!-- No Data Message -->
                 <div id="noData" style="display: none; text-align: center; padding: 40px; color: #6c757d;">
-                    <p>Tidak ada data produk. Tambahkan produk pertama Anda!</p>
+                    <p style="font-size: 18px; margin-bottom: 20px;">📭 Tidak ada data produk</p>
+                    <p>Mulai dengan menambahkan produk pertama Anda menggunakan form di samping!</p>
                 </div>
             </section>
         </div>
     </div>
     
-    <!-- Notification Area -->
+    <!-- Notification -->
     <div id="notification" class="notification"></div>
     
     <script>
-        // Konfigurasi
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlQUe1nizq-5AE9-U9BbnFhMGLL0x0zCCILMSiG7lYurzFyB82ReoySBYm1ZnnBatovw/exec'; // Ganti dengan URL deployment Anda
+        // KONFIGURASI
+        // GANTI URL_INI dengan URL deployment Google Apps Script Anda
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvJWiYgvQYXEdmUh9NvXwjvQ4gfMt_qJ5sPyI0KRkW-XNk7Jg-dGfL_IN-TC5AiX9fnA/exec';
         
-        // DOM Elements
+        // ELEMEN DOM
         const productForm = document.getElementById('productForm');
         const productTableBody = document.getElementById('productTableBody');
         const refreshBtn = document.getElementById('refreshBtn');
@@ -332,13 +435,28 @@
         const loadingElement = document.getElementById('loading');
         const dataContainer = document.getElementById('dataContainer');
         const noDataElement = document.getElementById('noData');
+        const statsContainer = document.getElementById('statsContainer');
         const notificationElement = document.getElementById('notification');
         
-        // State
-        let currentEditId = null;
+        // STATISTIK ELEMEN
+        const totalProductsEl = document.getElementById('totalProducts');
+        const totalStockEl = document.getElementById('totalStock');
+        const totalSoldEl = document.getElementById('totalSold');
+        const avgPriceEl = document.getElementById('avgPrice');
         
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', loadProducts);
+        // STATE
+        let productsData = [];
+        let isEditing = false;
+        
+        // EVENT LISTENERS
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!SCRIPT_URL.includes('URL_DEPLOYMENT_ANDA')) {
+                loadProducts();
+            } else {
+                showNotification('⚠️ Harap ganti SCRIPT_URL dengan URL deployment Anda', 'error');
+            }
+        });
+        
         refreshBtn.addEventListener('click', loadProducts);
         clearBtn.addEventListener('click', clearForm);
         
@@ -347,55 +465,87 @@
             saveProduct();
         });
         
-        // Fungsi untuk menampilkan notifikasi
+        // FUNGSI UTAMA
+        
+        // 1. Tampilkan Notifikasi
         function showNotification(message, type = 'success') {
             notificationElement.textContent = message;
             notificationElement.className = `notification ${type} show`;
             
             setTimeout(() => {
                 notificationElement.classList.remove('show');
-            }, 3000);
+            }, 4000);
         }
         
-        // Fungsi untuk memuat produk dari Google Sheets
+        // 2. Muat Data dari Google Sheets
         async function loadProducts() {
             showLoading();
             
             try {
                 const response = await fetch(SCRIPT_URL);
-                const products = await response.json();
+                const result = await response.json();
                 
-                if (products.length === 0) {
-                    showNoData();
+                if (result.success && result.data) {
+                    productsData = result.data;
+                    
+                    if (productsData.length === 0) {
+                        showNoData();
+                    } else {
+                        displayProducts(productsData);
+                        calculateStatistics(productsData);
+                        showDataContainer();
+                    }
+                    
+                    showNotification(`✅ ${productsData.length} produk berhasil dimuat`, 'success');
                 } else {
-                    displayProducts(products);
-                    showDataContainer();
+                    showNotification(`❌ Gagal memuat data: ${result.message || 'Unknown error'}`, 'error');
+                    showNoData();
                 }
-                
-                showNotification('Data produk berhasil dimuat', 'success');
             } catch (error) {
                 console.error('Error loading products:', error);
-                showNotification('Gagal memuat data produk', 'error');
+                showNotification('❌ Gagal terhubung ke server. Periksa URL deployment.', 'error');
                 showNoData();
             }
         }
         
-        // Fungsi untuk menampilkan produk dalam tabel
+        // 3. Tampilkan Produk di Tabel
         function displayProducts(products) {
             productTableBody.innerHTML = '';
             
             products.forEach((product, index) => {
                 const row = document.createElement('tr');
+                
+                // Format harga
+                const harga = product.harga ? formatRupiah(product.harga) : 'Rp 0';
+                
+                // Gambar thumbnail
+                const gambarUrl = product.gambar || 'https://placehold.co/50x50?text=No+Img';
+                const gambarHtml = `<img src="${gambarUrl}" alt="${product.nama}" class="product-image" onerror="this.src='https://placehold.co/50x50?text=Error'">`;
+                
                 row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${product.product || ''}</td>
-                    <td>Rp ${formatNumber(product.price || 0)}</td>
-                    <td>${product.stock || 0}</td>
-                    <td>${product.category || '-'}</td>
+                    <td>${product.id || index + 1}</td>
+                    <td>
+                        <strong>${product.nama || '-'}</strong>
+                        ${product.deskirpsi ? `<br><small style="color:#666;">${product.deskirpsi.substring(0, 50)}...</small>` : ''}
+                    </td>
+                    <td><span style="background:#e3f2fd; padding:4px 8px; border-radius:4px;">${product.kategori || '-'}</span></td>
+                    <td><strong>${harga}</strong></td>
+                    <td>
+                        <span style="font-weight:bold; color:${product['stok/wai'] > 10 ? '#28a745' : '#dc3545'}">
+                            ${product['stok/wai'] || 0}
+                        </span>
+                        <br>
+                        <small>Terjual: ${product.tefjuai || 0}</small>
+                    </td>
+                    <td>${gambarHtml}</td>
                     <td>
                         <div class="action-buttons">
-                            <button class="btn-primary action-btn" onclick="editProduct(${product.id})">Edit</button>
-                            <button class="btn-danger action-btn" onclick="deleteProduct(${product.id})">Hapus</button>
+                            <button class="btn-primary action-btn" onclick="editProduct(${index})">
+                                ✏️ Edit
+                            </button>
+                            <button class="btn-danger action-btn" onclick="deleteProduct(${index})">
+                                🗑️ Hapus
+                            </button>
                         </div>
                     </td>
                 `;
@@ -403,21 +553,49 @@
             });
         }
         
-        // Fungsi untuk menyimpan produk (Create/Update)
+        // 4. Hitung Statistik
+        function calculateStatistics(products) {
+            if (products.length === 0) {
+                statsContainer.style.display = 'none';
+                return;
+            }
+            
+            const totalProducts = products.length;
+            const totalStock = products.reduce((sum, p) => sum + (parseInt(p['stok/wai']) || 0), 0);
+            const totalSold = products.reduce((sum, p) => sum + (parseInt(p.tefjuai) || 0), 0);
+            const totalPrice = products.reduce((sum, p) => sum + (parseInt(p.harga) || 0), 0);
+            const avgPrice = totalPrice / totalProducts;
+            
+            totalProductsEl.textContent = totalProducts;
+            totalStockEl.textContent = totalStock;
+            totalSoldEl.textContent = totalSold;
+            avgPriceEl.textContent = formatRupiah(avgPrice);
+            
+            statsContainer.style.display = 'grid';
+        }
+        
+        // 5. Simpan Produk (Create/Update)
         async function saveProduct() {
-            const productData = {
-                product: document.getElementById('productName').value,
-                price: document.getElementById('productPrice').value,
-                stock: document.getElementById('productStock').value,
-                category: document.getElementById('productCategory').value,
-                description: document.getElementById('productDescription').value
-            };
+            // Kumpulkan data dari form
+            const formData = new FormData(productForm);
+            const productData = {};
             
-            const productId = document.getElementById('productId').value;
-            const action = productId ? 'update' : 'create';
+            // Konversi FormData ke object
+            for (let [key, value] of formData.entries()) {
+                productData[key] = value;
+            }
             
-            if (productId) {
-                productData.id = productId;
+            // Ambil rowId jika sedang edit
+            const rowId = document.getElementById('rowId').value;
+            const frontendId = document.getElementById('frontendId').value;
+            
+            // Tentukan action
+            const action = isEditing ? 'update' : 'create';
+            
+            // Tambahkan ID untuk update
+            if (isEditing && rowId) {
+                productData.rowId = rowId;
+                productData.id = frontendId;
             }
             
             try {
@@ -429,85 +607,107 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    showNotification(result.message, 'success');
+                    showNotification(`✅ ${result.message}`, 'success');
                     clearForm();
                     loadProducts();
                 } else {
-                    showNotification(result.message, 'error');
+                    showNotification(`❌ ${result.message}`, 'error');
                 }
             } catch (error) {
                 console.error('Error saving product:', error);
-                showNotification('Gagal menyimpan produk', 'error');
+                showNotification('❌ Gagal menyimpan produk. Periksa koneksi.', 'error');
             }
         }
         
-        // Fungsi untuk mengedit produk
-        window.editProduct = function(id) {
-            const rows = productTableBody.querySelectorAll('tr');
+        // 6. Edit Produk
+        window.editProduct = function(index) {
+            const product = productsData[index];
             
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const rowId = parseInt(cells[5].querySelector('.btn-primary').getAttribute('onclick').match(/\d+/)[0]);
-                
-                if (rowId === id) {
-                    // Ambil data dari tabel (disesuaikan dengan struktur data asli)
-                    document.getElementById('productName').value = cells[1].textContent;
-                    document.getElementById('productPrice').value = cells[2].textContent.replace('Rp ', '').replace(/\./g, '');
-                    document.getElementById('productStock').value = cells[3].textContent;
-                    document.getElementById('productCategory').value = cells[4].textContent !== '-' ? cells[4].textContent : '';
-                    document.getElementById('productId').value = id;
-                    document.getElementById('saveBtn').textContent = 'Update Produk';
-                    
-                    currentEditId = id;
-                    showNotification('Mode edit diaktifkan', 'info');
-                }
-            });
+            if (!product) {
+                showNotification('❌ Produk tidak ditemukan', 'error');
+                return;
+            }
+            
+            // Isi form dengan data produk
+            document.getElementById('nama').value = product.nama || '';
+            document.getElementById('kategori').value = product.kategori || '';
+            document.getElementById('harga').value = product.harga || '';
+            document.getElementById('stok').value = product['stok/wai'] || '';
+            document.getElementById('pembelian').value = product.pembelian || '';
+            document.getElementById('terjual').value = product.tefjuai || '';
+            document.getElementById('gambar').value = product.gambar || '';
+            document.getElementById('deskirpsi').value = product.deskirpsi || '';
+            
+            // Simpan ID
+            document.getElementById('rowId').value = product.rowId;
+            document.getElementById('frontendId').value = product.id || index;
+            
+            // Ubah mode ke edit
+            document.getElementById('saveBtn').innerHTML = '<span>🔄</span> Update Produk';
+            isEditing = true;
+            
+            // Scroll ke form
+            document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+            
+            showNotification('✏️ Mode edit diaktifkan. Perbarui data dan klik "Update Produk"', 'info');
         };
         
-        // Fungsi untuk menghapus produk
-        window.deleteProduct = async function(id) {
-            if (!confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+        // 7. Hapus Produk
+        window.deleteProduct = async function(index) {
+            const product = productsData[index];
+            
+            if (!product || !confirm(`Apakah Anda yakin ingin menghapus produk:\n"${product.nama || 'Produk ini'}"?`)) {
                 return;
             }
             
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ action: 'delete', data: { id } })
+                    body: JSON.stringify({ 
+                        action: 'delete', 
+                        data: { id: product.id } 
+                    })
                 });
                 
                 const result = await response.json();
                 
                 if (result.success) {
-                    showNotification(result.message, 'success');
+                    showNotification(`✅ ${result.message}`, 'success');
                     loadProducts();
                 } else {
-                    showNotification(result.message, 'error');
+                    showNotification(`❌ ${result.message}`, 'error');
                 }
             } catch (error) {
                 console.error('Error deleting product:', error);
-                showNotification('Gagal menghapus produk', 'error');
+                showNotification('❌ Gagal menghapus produk', 'error');
             }
         };
         
-        // Fungsi untuk membersihkan form
+        // 8. Bersihkan Form
         function clearForm() {
             productForm.reset();
-            document.getElementById('productId').value = '';
-            document.getElementById('saveBtn').textContent = 'Simpan Produk';
-            currentEditId = null;
-            showNotification('Form telah dibersihkan', 'info');
+            document.getElementById('rowId').value = '';
+            document.getElementById('frontendId').value = '';
+            document.getElementById('saveBtn').innerHTML = '<span>💾</span> Simpan Produk';
+            isEditing = false;
+            showNotification('🧹 Form telah dibersihkan', 'info');
         }
         
-        // Fungsi utilitas
-        function formatNumber(num) {
-            return parseInt(num).toLocaleString('id-ID');
+        // 9. Fungsi Bantuan
+        function formatRupiah(number) {
+            const num = parseInt(number) || 0;
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(num);
         }
         
         function showLoading() {
             loadingElement.style.display = 'block';
             dataContainer.style.display = 'none';
             noDataElement.style.display = 'none';
+            statsContainer.style.display = 'none';
         }
         
         function showDataContainer() {
@@ -520,10 +720,8 @@
             loadingElement.style.display = 'none';
             dataContainer.style.display = 'none';
             noDataElement.style.display = 'block';
+            statsContainer.style.display = 'none';
         }
-        
-        // Muat data saat halaman pertama kali dibuka
-        loadProducts();
     </script>
 </body>
 </html>
